@@ -66,7 +66,6 @@ export default function LoginScreen() {
               autoCapitalize="none"
               activeOutlineColor={Colors.primary}
               style={styles.input}
-              left={<TextInput.Icon icon="account" />}
             />
 
             <TextInput
@@ -77,7 +76,6 @@ export default function LoginScreen() {
               secureTextEntry
               activeOutlineColor={Colors.primary}
               style={styles.input}
-              left={<TextInput.Icon icon="lock" />}
             />
 
             {error ? <Text style={styles.error}>{error}</Text> : null}

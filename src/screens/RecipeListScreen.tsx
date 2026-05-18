@@ -12,7 +12,6 @@ import RecipeTypePicker from '@components/RecipeTypePicker';
 import { useRecipes } from '@hooks/useRecipes';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useAuth } from '@hooks/useAuth';
 import { Colors } from '@utils/common';
 
@@ -32,7 +31,7 @@ export default function RecipeListScreen() {
       title: user ? `${user.firstName}'s Recipes` : 'Recipes',
       headerRight: () => (
         <TouchableOpacity onPress={logout} style={styles.logoutButton}>
-          <Ionicons name="log-out-outline" size={28} />
+          <Text>Logout</Text>
         </TouchableOpacity>
       ),
     });
@@ -81,7 +80,7 @@ export default function RecipeListScreen() {
         style={styles.fab}
         onPress={() => navigation.navigate('InsertRecipe')}
       >
-        <Ionicons name="add" size={24} color={Colors.textPrimary} />
+        <Text style={styles.fabText}>+</Text>
       </TouchableOpacity>
     </View>
   );
@@ -110,6 +109,9 @@ const styles = StyleSheet.create({
     elevation: 6,
     shadowOpacity: 0.3,
     shadowRadius: 4,
+  },
+  fabText: {
+    fontSize: 40,
   },
   empty: {
     marginTop: 80,

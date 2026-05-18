@@ -8,7 +8,7 @@ import {
   Platform,
   KeyboardAvoidingView,
 } from 'react-native';
-import { Card, TextInput, Button, Text, IconButton } from 'react-native-paper';
+import { Card, TextInput, Button, Text } from 'react-native-paper';
 import { launchImageLibrary } from 'react-native-image-picker';
 import RecipeTypePicker from '@components/RecipeTypePicker';
 import { Colors } from '@utils/common';
@@ -131,9 +131,7 @@ export default function RecipeForm({
                 style={styles.input}
               />
 
-              <Text style={styles.recipeType}>
-                Recipe Type
-              </Text>
+              <Text style={styles.recipeType}>Recipe Type</Text>
               <RecipeTypePicker
                 selectedValue={typeId}
                 onValueChange={setTypeId}
@@ -166,10 +164,13 @@ export default function RecipeForm({
                     label={`Ingredient ${index + 1}`}
                   />
 
-                  <IconButton
-                    icon="delete"
+                  <Button
+                    mode="text"
+                    textColor={Colors.textSecondary}
                     onPress={() => removeIngredient(index)}
-                  />
+                  >
+                    Remove
+                  </Button>
                 </View>
               ))}
             </Card.Content>
@@ -201,7 +202,13 @@ export default function RecipeForm({
                     label={`Step ${index + 1}`}
                   />
 
-                  <IconButton icon="delete" onPress={() => removeStep(index)} />
+                  <Button
+                    mode="text"
+                    textColor={Colors.textSecondary}
+                    onPress={() => removeStep(index)}
+                  >
+                    Remove
+                  </Button>
                 </View>
               ))}
             </Card.Content>
@@ -267,7 +274,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   recipeType: {
-    fontSize: 10
+    fontSize: 10,
   },
   input: {
     marginBottom: 16,
