@@ -1,4 +1,4 @@
-package com.recipeapp
+package com.hooyuhan.recipeapp
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
