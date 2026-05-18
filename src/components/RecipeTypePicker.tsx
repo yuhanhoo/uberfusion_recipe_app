@@ -1,6 +1,5 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+import { useEffect, useState } from 'react';
+import DropDown from 'react-native-paper-dropdown';
 import recipeTypes from '@data/recipetypes.json';
 
 interface Props {
@@ -14,22 +13,36 @@ export default function RecipeTypePicker({
   onValueChange,
   includeAll = false,
 }: Props) {
+  const [showDropDown, setShowDropDown] = useState(false);
+
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    const mapped = recipeTypes.map(type => ({
+      label: type.name,
+      value: type.id,
+    }));
+
+    if (includeAll) {
+      mapped.unshift({
+        label: 'All Recipes',
+        value: 'all',
+      });
+    }
+
+    setList(mapped);
+  }, []);
+
   return (
-    <Picker
-      selectedValue={selectedValue}
-      onValueChange={onValueChange}
-      style={styles.picker}
-    >
-      {includeAll && <Picker.Item label="All Recipes" value="all" />}
-      {recipeTypes.map(type => (
-        <Picker.Item key={type.id} label={type.name} value={type.id} />
-      ))}
-    </Picker>
+    <DropDown
+      label="Recipe Type"
+      mode="outlined"
+      visible={showDropDown}
+      showDropDown={() => setShowDropDown(true)}
+      onDismiss={() => setShowDropDown(false)}
+      value={selectedValue}
+      setValue={onValueChange}
+      list={list}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  picker: {
-    width: '100%',
-  },
-});

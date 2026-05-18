@@ -57,5 +57,9 @@
 	<false/>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Select recipe photos</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Ionicons.ttf</string>
+	</array>
 </dict>
 </plist>
