@@ -50,8 +50,5 @@
   },
   "engines": {
     "node": ">= 22.11.0"
-  },
-  "reactNativeVectorIcons": {
-    "fontDir": "rnvi-fonts"
   }
 }
