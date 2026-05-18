@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
-import DropDown from 'react-native-paper-dropdown';
+import { StyleSheet, View } from 'react-native';
+import { Dropdown } from 'react-native-element-dropdown';
 import recipeTypes from '@data/recipetypes.json';
+import { Colors } from '@utils/common';
 
 interface Props {
   selectedValue: string;
@@ -13,36 +14,57 @@ export default function RecipeTypePicker({
   onValueChange,
   includeAll = false,
 }: Props) {
-  const [showDropDown, setShowDropDown] = useState(false);
-
-  const [list, setList] = useState([]);
-
-  useEffect(() => {
-    const mapped = recipeTypes.map(type => ({
+  const data = [
+    ...(includeAll
+      ? [
+          {
+            label: 'All Recipes',
+            value: 'all',
+          },
+        ]
+      : []),
+    ...recipeTypes.map(type => ({
       label: type.name,
       value: type.id,
-    }));
-
-    if (includeAll) {
-      mapped.unshift({
-        label: 'All Recipes',
-        value: 'all',
-      });
-    }
-
-    setList(mapped);
-  }, []);
+    })),
+  ];
 
   return (
-    <DropDown
-      label="Recipe Type"
-      mode="outlined"
-      visible={showDropDown}
-      showDropDown={() => setShowDropDown(true)}
-      onDismiss={() => setShowDropDown(false)}
-      value={selectedValue}
-      setValue={onValueChange}
-      list={list}
-    />
+    <View style={styles.container}>
+      <Dropdown
+        style={styles.dropdown}
+        placeholderStyle={styles.placeholder}
+        selectedTextStyle={styles.selectedText}
+        data={data}
+        labelField="label"
+        valueField="value"
+        placeholder="Select Recipe Type"
+        value={selectedValue}
+        onChange={item => onValueChange(item.value)}
+      />
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 8,
+    marginBottom: 8,
+  },
+  dropdown: {
+    height: 52,
+    borderWidth: 1,
+    borderColor: Colors.border,
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    backgroundColor: Colors.surface,
+  },
+  placeholder: {
+    color: Colors.textSecondary,
+    fontSize: 16,
+  },
+  selectedText: {
+    fontSize: 16,
+    color: Colors.textPrimary,
+  },
+});
